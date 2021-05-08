@@ -1,7 +1,7 @@
 import random
 from matplotlib import pyplot as plt, animation
 
-# See https://www.geeksforgeeks.org/visualizing-bubble-sort-using-python/
+# Modified from: https://www.geeksforgeeks.org/visualizing-bubble-sort-using-python/
   
 # helper methods
 def swap(A, i, j):
