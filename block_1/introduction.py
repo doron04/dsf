@@ -2,7 +2,6 @@
 # mehr linear. D.h. es werden Konzepte wie z.B. Schleifen verwendet
 # bevor sie näher erklärt werden.
 
-
 # 1. Einfache Rechenoperationen
 
 # 1.1 Elementare Rechenoperationen
@@ -10,7 +9,6 @@
 # Importiert Funktionen random.function_name aufgerufen werden können
 import random
 import time
-import random
 3 + 3 * 2      # Punkt vor Strichrechnung
 (3 + 3) * 2    # Klammern werden zuerst evaluiert
 
@@ -445,48 +443,210 @@ def kwargs_example(**kwargs):   # ** ist notwendig, kwargs ebenfalls eine Konven
 
 keys, values = kwargs_example(first_arg=3, second_arg=5, third_arg=8)
 print(keys, values)
-<<<<<<< HEAD
+
 
 # 7.0 Rekursion
+# Rekursive Funktionen sind Funktionen die sich direkt oder indirekt selbst
+# aufrufen 
 
-# Beispiel 1) Recursion
+# 7.1 Beispiel Fakultät
+# i.e. 5! = 5 * 4 * 3 * 2 * 1 = 120
 
-# 5! = 5*4*3*2*1
-# 1! = 1
-
-# Zunächst eine iterative Lösung
-def factorial(n):
+def fac(n):
+    '''Einfache Funktion zur Berechnung der Fakultät
+    einer Zahl'''
     number = 1
     for i in range(1, n+1):
-        number *= i 
+        number *= i
 
     return number
 
-factorial(5)
-
-def fac_recursive(n):
+def fac_rec(n):
+    '''Einfache rekursive Funktion zur Berechnung der Fakultät
+    einer Zahl'''
     if n == 1: return 1
-    return n * fac_recursive(n-1)
+    return fac_rec(n-1) * n 
 
-factorial(5)
+print(f'Output von fac: {fac(5)}\nOutput von fac_rec: {fac_rec(5)}')
 
-# Fibonacci Reihe
-0, 1, 1, 2, 3, 5, 8
+# 7.2 Fibonacci Folge
+# f_0 = 0, f_1 = 1, f_n = f_{n-1} + f_{n-2} forall n>=3
+# => 0, 1, 1, 2, 3, 5, 8, 13....
 
 def fib_rec(n):
+    '''Rekursive Funktion zur Berechnung der Fibonacci Reihe'''
+    if n in {0, 1}:
+        return n
+
+    return fib_rec(n-1) + fib_rec(n-2)
+
+
+def fib_iterative(n):
     if n in {0, 1}: return n
     
-    return  fib_rec(n-1) + fib_rec(n-2)
-    
-fib_rec(6)
+    fib_0 = 0
+    fib_1 = 1    
+    for i in range(2, n+1):
+        fib_n = fib_0 + fib_1
+        fib_0, fib_1 = fib_1, fib_n
 
-# 7 Sortieralgorithmen
+    return fib_n
+
+fib_rec(5)
+fib_iterative(5)
+
+# Intuition zur Laufzeit:
+for i in range(40):     
+    print(i+1, fib_rec(i))
+
+# => Rekursive Lösung hat eine Laufzeit von O(2^n)
+# Jeder Funktionsaufruf führt zu zwei weiteren Aufrufen, die 
+# jedes Ergebnis neu berechnen. 
+
+# Intuition zur Laufzeit:
+for i in range(1000):     
+    print(i+1, fib_iterative(i))
+
+# Iterativer Ansatz läuft in O(n)
+
+# 8 Sortieralgorithmen
 
 # 7.1 Bubblesort
+import random
+import time
+len_array = 10_000   # = 10000
+
+unsorted_list = [random.randint(0,10000000) for x in range(len_array)]
+
+def bubble_sort(array):
+    '''Bubble Sort Algorithmus. Nimmt eine Liste als Input
+    und gibt den sortierten Output als Liste zurück.'''
+    k = len(array)
+    # .copy() erstellt eine Kopie des array in S, ansonsten würden
+    # array und S auf den gleichen Speicher zeigen und das return
+    # statement wäre irrelevant.
+    S = array.copy()  
+    while k > 0:
+        for i in range(k-1):
+            if S[i] > S[i+1]: S[i], S[i+1] = S[i+1], S[i]
+
+        k -= 1
+    return S
+
+s_0 = time.time()
+sorted_list = bubble_sort(unsorted_list)
+time_b_sort = time.time() - s_0
 
 # 7.2 Mergesort
+def merge_sort(array):
+    '''Mergesort Algorithm. Takes a list as an input
+    and returns the sorted list. Runs on O(n log(n))'''
+    
+    # Schritt 1: Reduktion auf einen 'Base Case'
+    if len(array) == 1:
+        return array   # Return wenn die Liste nur noch 1 Element hat.
 
+    # Ansonsten, teile die Liste in zwei in etwa gleichgroße Hälften...
+    mid = len(array) // 2  
+    left = array[:mid]
+    right = array[mid:]
+
+    # ... und rufe Mergesort auf, bis der Basisfall erreicht ist.
+    left = merge_sort(left)
+    right = merge_sort(right)
+
+    # Gebe eine Hilfsfunktion zurück, die zwei sortierte Listen
+    # effizient in eine sortierte Liste überführt. 
+    return merge(left, right)
+
+def merge(left, right):
+    '''Hilfsfunktion für den Mergesort Algorithmus. Nimmt zwei 
+    bereits sortierte Listen als Input und gibt eine sortierte
+    Liste zurück'''
+
+    left_index, right_index = 0, 0
+    return_list = []
+
+    while left_index < len(left) and right_index < len(right):
+        if left[left_index] < right[right_index]:
+            return_list.append(left[left_index])
+            left_index += 1
+        else:
+            return_list.append(right[right_index])
+            right_index += 1
+
+    return_list += left[left_index:]        
+    return_list += right[right_index:]
+
+    return return_list    
+
+s_0 = time.time()
+sorted_list = merge_sort(unsorted_list)
+time_m_sort = time.time() - s_0
+
+print(f'Bubblesort takes {time_b_sort}\nMergesort takes {time_m_sort}\nfor {len_array} values')
 
 # 8 Klassen und Objekte
-=======
->>>>>>> 6163bb16b48a6dfcba80e05e6c9dfd228fbd0bcf
+
+class Student:
+    '''Studenten Klasse, jeder Student ist vollständig
+    definiert über seinen Namen, sein Alter und seine Noten'''
+    def __init__(self, name, age, grades):   # Jede Methode started mit dem keyword self
+        '''Konstruktur, wird bei Initialisierung eines Objektes
+        von der Klasse aufgerufen'''
+        print('Constructor was called')   # Nur für Veranschaulichungszwecke
+        self.name = name   
+        self.age = age
+        self.grades = grades
+
+    def calc_avg(self):
+        '''Methode zur Berechnung der durchschnittlichen Noten'''
+        return sum(self.grades.values())/len(self.grades)
+
+    def __add__(self, other):
+        '''Methode, die die '+' Operationen zwischen zwei Studenten
+        über ihren gemittelten Notenschnitt definiert.'''
+        return (sum(self.grades.values()) + sum(other.grades.values())) \
+            / (len(self.grades) + len(other.grades))
+
+    
+student_1 = Student(   # student_1 der Klasse Student -> Konstruktor wird aufgerufen
+    'Fabian',          # self.name wird über den Konstruktor auf 'Fabian' gesetzt
+    25,                # self.age wird über den Konstruktor auf 25 gesetzt
+    {'Data Science in Finacne': 1.3,  # self.grades wird über den Konstruktor auf flg. dictionary gesetzt
+            'Wirtschaftsrecht': 2.0}
+            )
+
+student_2 = Student(
+    'Alex',
+    28, 
+    {'Data Science in Finacne': 1.0,
+            'Wirtschaftsrecht': 3.0}
+            )
+
+student_1.calc_avg()    # Methoden von Objekten werden mit objekt.methode(args) aufgerufen
+student_2.calc_avg()
+
+student_1 + student_2   # Da Addittion über __add__ definiert wurde, wird jetzt der gemittelte
+                        # Notenschnitt beider Studenten zurückgegeben
+
+class PhD_Student(Student):     # Erbt alle Methoden von der Klasse Student
+    '''Klasse PhD Student, ähnelt einem Studenten, wird jedoch
+    zusätzlich von den Studenten beurteilt.'''
+    def __init__(self, name, age, grades, student_eval):
+        '''Konstruktor für den PhD Studenten'''
+        super().__init__(name, age, grades)  # Super ruft den Konstruktor von Student auf
+        self.student_eval = student_eval     # Zusätzlich wird nun die Studentenbewertung definiert
+
+doron = PhD_Student(   # doron wird als PhD Student initalisiert.
+    # name, age und grades werden zu dem Konstruktor von Student übergeben (super().__init__)
+    'Doron',  
+    27, 
+    {'Data Science in Finacne': 1.3,
+            'Wirtschaftsrecht': 2.0},
+    'Somewhat good'   # zusätzlich wird auch die Studentenbewertung an den Konstruktor von PhD Student übergeben.
+            )
+    
+doron + doron         # Alle Methoden von der Student Klasse bleiben erhalten!
+doron.calc_avg()
+doron.student_eval    # Zusätzlich sind die Studentenattribute vorhanden
