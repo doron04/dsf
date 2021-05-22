@@ -228,6 +228,7 @@ def sum_tuple_x(tup1, tup2):
 
         tuple_values += [tup for tup in tup_list]
 
+
     # create empty dict
     output = {}
 

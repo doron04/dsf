@@ -445,3 +445,48 @@ def kwargs_example(**kwargs):   # ** ist notwendig, kwargs ebenfalls eine Konven
 
 keys, values = kwargs_example(first_arg=3, second_arg=5, third_arg=8)
 print(keys, values)
+<<<<<<< HEAD
+
+# 7.0 Rekursion
+
+# Beispiel 1) Recursion
+
+# 5! = 5*4*3*2*1
+# 1! = 1
+
+# Zunächst eine iterative Lösung
+def factorial(n):
+    number = 1
+    for i in range(1, n+1):
+        number *= i 
+
+    return number
+
+factorial(5)
+
+def fac_recursive(n):
+    if n == 1: return 1
+    return n * fac_recursive(n-1)
+
+factorial(5)
+
+# Fibonacci Reihe
+0, 1, 1, 2, 3, 5, 8
+
+def fib_rec(n):
+    if n in {0, 1}: return n
+    
+    return  fib_rec(n-1) + fib_rec(n-2)
+    
+fib_rec(6)
+
+# 7 Sortieralgorithmen
+
+# 7.1 Bubblesort
+
+# 7.2 Mergesort
+
+
+# 8 Klassen und Objekte
+=======
+>>>>>>> 6163bb16b48a6dfcba80e05e6c9dfd228fbd0bcf
