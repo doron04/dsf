@@ -113,4 +113,4 @@ def visualize(N, sorter, heading):
   
   
 if __name__ == "__main__":
-    visualize(100, mergesort, 'Mergesort')
+    visualize(100, bubblesort, 'Mergesort') 
