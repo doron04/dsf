@@ -3,21 +3,25 @@ import time
 
 num_elements = 10000
 
-S = [random.randint(0,1000000) for x in range(num_elements)]
+S = [random.randint(0, 1000000) for x in range(num_elements)]
 
 
 def bubble_sort(array):
-    '''Bubble Sort Algorithm. Takes an unsorted list as input and returns a sorted list'''
+    '''Bubble Sort Algorithmus. Nimmt eine Liste als Input
+    und gibt den sortierten Output als Liste zurück.'''
     k = len(array)
-    S = array
-    while k>0:
+    # .copy() erstellt eine Kopie des array in S, ansonsten würden
+    # array und S auf den gleichen Speicher zeigen und das return
+    # statement wäre irrelevant.
+    S = array.copy()
+    while k > 0:
         for i in range(k-1):
             if S[i] > S[i+1]:
-                temp = S[i]
-                S[i] = S[i+1]
-                S[i+1] = temp
+                S[i], S[i+1] = S[i+1], S[i]
+
         k -= 1
     return S
+
 
 s0 = time.time()
 sorted_array = bubble_sort(S)
@@ -56,7 +60,8 @@ def merge_sort(array):
 
     return merge(left, right)
 
-S = [random.randint(0,1000000) for x in range(num_elements)]
+
+S = [random.randint(0, 1000000) for x in range(num_elements)]
 
 s0 = time.time()
 sorted_array = merge_sort(S)

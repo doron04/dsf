@@ -101,7 +101,7 @@ s.count('ein')          # zählt wie oft ein Substring vorkommt
 s.split()       # Splittet einen String anhand von Leerzeichen
 s.split(',')    # Splittet einen String anhand von Kommata
 
-s = 'Dies ist Linie 1\mDies ist Linie 2\nDies ist Linie 3'
+s = 'Dies ist Linie 1\nDies ist Linie 2\nDies ist Linie 3'
 
 s.splitlines()   # Splittet einen String anhand des Linebreaks (=split('\n'))
 
@@ -228,8 +228,8 @@ re.search(r'\bbad\b', s)   # matcht bad
 # 2.7 Lookarounds
 
 s = """
-    Mrs. Emma Rich ist die Beste. Mr. Richard Smith, ist ein Experte in 
-    Machine Learning Applications.
+    Mrs. Emma Rich ist die Beste. Mr. Richard Smith, ist ein Experte in
+     Machine Learning Applications.
     """
 
 # ?=REGEX: Positiver Lookahead
@@ -302,8 +302,8 @@ re.search(r'a+', s, re.IGNORECASE)  # matcht 'AAAaaa'
 
 
 s = """
-    Mrs. Emma Rich ist die Beste. Mr. Richard Smith, ist ein Experte in 
-    Machine Learning Applications.
+    Mrs. Emma Rich ist die Beste. Mr. Richard Smith, ist ein Experte in
+     Machine Learning Applications.
     """
 
 # matcht alle Namen

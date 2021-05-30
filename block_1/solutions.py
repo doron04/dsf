@@ -182,10 +182,8 @@ tup2 = [(0, 5), (1, 2), (2, 2), (3, 1), (4, 0), (5, 4)]
 
 
 def sum_tuple_y(tup_list):
-    """
-    Given a tuple of (x, y) this function sums the y-values of 
-    a list of tuples.
-    """
+    """Given a tuple of (x, y) this function sums the y-values of
+    a list of tuples."""
     sum_y = 0
     for tup in tup_list:
         sum_y += tup[1]
@@ -199,10 +197,8 @@ sum_tuple_y(tup1)
 
 
 def sum_tuple_y(tup_list):
-    """
-    Given a tuple of (x, y) this function sums the y-values of 
-    a list of tuples.
-    """
+    """Given a tuple of (x, y) this function sums the y-values of
+    a list of tuples."""
     return sum([tup[1] for tup in tup_list])
 
 
@@ -217,16 +213,16 @@ sum_tuple_y(tup1)
 
 
 def sum_tuple_x(tup1, tup2):
-    """
-    Given two lists of tuples of (x, y) this function sums the y-values of 
-    across all x-values and returns the output in a dictionary.
-    """
+    """Given two lists of tuples of (x, y) this function sums the y-values of
+    across all x-values and returns the output in a dictionary."""
 
     # collect all tuple values in one larger list
+
     tuple_values = []
     for tup_list in [tup1, tup2]:
 
         tuple_values += [tup for tup in tup_list]
+
 
 
     # create empty dict
