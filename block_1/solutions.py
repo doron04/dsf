@@ -217,7 +217,13 @@ def sum_tuple_x(tup1, tup2):
     across all x-values and returns the output in a dictionary."""
 
     # collect all tuple values in one larger list
-    tuple_values = tup1 + tup2
+
+    tuple_values = []
+    for tup_list in [tup1, tup2]:
+
+        tuple_values += [tup for tup in tup_list]
+
+
 
     # create empty dict
     output = {}
