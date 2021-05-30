@@ -9,8 +9,7 @@ r = requests.get(link, allow_redirects=True)
 # Lösung 1
 
 # create regex that separates each full message
-message_re = re.compile(r'"id":\d+,"body":.*?"sentiment":.*?}',
-                        re.DOTALL)
+message_re = re.compile(r'"id":\d+,"body":.*?"sentiment":.*?}')
 
 # check
 len(message_re.findall(r.text))  # 30 since each request pull 30 tweets
